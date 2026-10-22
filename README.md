@@ -4,7 +4,7 @@
 
 Marsa is a proposed self-hosted deployment control plane for **one Linux Docker host**. It is designed to take a Git repository or OCI image, build an immutable release, route a hostname over HTTPS, show what happened, and roll back explicitly when a release is bad.
 
-**Current state: documentation only.** The repository contains the product specification, architecture, security model, 20 ADRs, a 39-issue backlog, and Arabic learning material. Marsa 0.1 has **not been implemented or released**; there is no server image, CLI binary, or installer yet.
+**Current state: documentation only.** The repository contains the product specification, architecture, security model, 20 ADRs, and a 39-issue backlog. Marsa 0.1 has **not been implemented or released**; there is no server image, CLI binary, or installer yet. The owner's Arabic learning notes and progress log are kept privately and are not part of this repository.
 
 Marsa is an [Ofuq](https://github.com/ofuqq) project.
 
@@ -32,8 +32,6 @@ See the full boundary in [the roadmap](docs/08-roadmap.md) and [requirements](do
 | Path | Contents |
 |---|---|
 | [`docs/`](docs/README.md) | Index of every document |
-| [`docs/ar/project-explained.ar.md`](docs/ar/project-explained.ar.md) | Beginner Arabic guide: from `git push` to a live HTTPS release |
-| [`docs/ar/glossary.ar.md`](docs/ar/glossary.ar.md) | Arabic glossary for every term used in the guide |
 | [`docs/00-vision.md`](docs/00-vision.md) | Why Marsa exists, users, principles, non-goals |
 | [`docs/01-product-requirements.md`](docs/01-product-requirements.md) | 151 requirement IDs and acceptance criteria |
 | [`docs/03-architecture.md`](docs/03-architecture.md) | Modular monolith, state machine, trust boundaries |
@@ -77,7 +75,6 @@ These commands do not work in the current documentation-only repository.
 5. [Security](docs/07-security.md) — trust boundaries and residual risk.
 6. [Roadmap](docs/08-roadmap.md) — construction order and MVP cut line.
 7. [Backlog](docs/backlog/README.md) — issue format and dependency order.
-8. [Arabic guide](docs/ar/project-explained.ar.md) — the beginner path.
 
 For AI-assisted work, start with [AGENTS.md](AGENTS.md), then [docs/ai/README.md](docs/ai/README.md).
 
@@ -133,6 +130,8 @@ Contributions are welcome once the owner opens the repository for them. Read [CO
 - Do not translate or copy code from another project.
 - Keep the single-host, one-service, PostgreSQL-only boundaries unless an ADR changes them.
 - Never commit secrets, tokens, private repository URLs, or production data.
+- Never commit the owner's private progress, Arabic learning, handoff, prompt, or notes files. Public docs must not link to them.
+- Every code change needs a beginner Arabic explanation before it is considered done; see [the Definition of Done](docs/ai/definition-of-done.md).
 - Security reports follow [SECURITY.md](SECURITY.md).
 
 ## License

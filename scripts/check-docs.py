@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parent.parent
+LOCAL = ROOT / ".local"
 LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 REQUIRED = [
     "README.md",
@@ -17,14 +18,12 @@ REQUIRED = [
     "LICENSE",
     "docs/README.md",
     "docs/00-identity.md",
-    "docs/00-progress.md",
     "docs/01-product-requirements.md",
     "docs/03-architecture.md",
     "docs/07-security.md",
     "docs/07-risks-and-open-questions.md",
     "docs/08-roadmap.md",
-    "docs/ar/project-explained.ar.md",
-    "docs/ar/glossary.ar.md",
+    "docs/ai/definition-of-done.md",
 ]
 
 
@@ -47,12 +46,19 @@ def main() -> int:
         if not (ROOT / required).exists():
             failures.append(f"missing required file: {required}")
 
-    for path in sorted(ROOT.rglob("*.md")):
-        if any(part in {".git", "node_modules", "bin", "obj"} for part in path.parts):
-            continue
+    markdown_files = [
+        path
+        for path in sorted(ROOT.rglob("*.md"))
+        if not any(part in {".git", ".local", "node_modules", "bin", "obj"} for part in path.parts)
+    ]
+
+    for path in markdown_files:
         for source, target in relative_links(path):
             resolved = (path.parent / target).resolve()
-            if not resolved.exists():
+            if resolved.is_relative_to(LOCAL):
+                rel = path.relative_to(ROOT)
+                failures.append(f"{rel}: public document links into private workspace {source}")
+            elif not resolved.exists():
                 rel = path.relative_to(ROOT)
                 failures.append(f"{rel}: broken link {source} -> {target}")
 
@@ -62,7 +68,7 @@ def main() -> int:
             print(f"  - {failure}", file=sys.stderr)
         return 1
 
-    print(f"Documentation checks passed ({len(list(ROOT.rglob('*.md')))} Markdown files).")
+    print(f"Documentation checks passed ({len(markdown_files)} Markdown files).")
     return 0
 
 

@@ -6,21 +6,25 @@ This file is the operating contract for AI agents and human contributors. It is 
 
 Marsa (مرسى) is a clean-room, self-hosted deployment platform for a single Linux host, built with .NET 10, PostgreSQL, Docker, and Caddy. The brand is **Ofuq**; the GitHub handle is **`ofuqq`**.
 
-The current state is recorded in [`docs/00-progress.md`](docs/00-progress.md). Do not assume product code exists. At the documentation stage, "implementation" means editing specifications, issue drafts, templates, scripts, and configuration.
+The current state is recorded in public specifications, the issue drafts, and the owner's private handoff. Do not assume product code exists. At the documentation stage, "implementation" means editing specifications, issue drafts, templates, scripts, and configuration.
+
+The owner may provide a private handoff or progress file. Treat it as context, not as a public contract: never commit, quote, or link it from public docs.
 
 ## 2. Read before acting
 
-1. [`docs/00-progress.md`](docs/00-progress.md) — current phase, decisions, next action.
-2. [`docs/00-identity.md`](docs/00-identity.md) — canonical names and identifiers.
-3. [`docs/01-product-requirements.md`](docs/01-product-requirements.md) — approved requirements and milestone IDs.
-4. [`docs/03-architecture.md`](docs/03-architecture.md) and [`docs/04-dotnet-solution-structure.md`](docs/04-dotnet-solution-structure.md) — system and code boundaries.
-5. [`docs/07-risks-and-open-questions.md`](docs/07-risks-and-open-questions.md) — proposed decisions, open questions, risks.
-6. [`docs/backlog/README.md`](docs/backlog/README.md) — issue format and coverage.
+1. [`docs/00-identity.md`](docs/00-identity.md) — canonical names and identifiers.
+2. [`docs/01-product-requirements.md`](docs/01-product-requirements.md) — approved requirements and milestone IDs.
+3. [`docs/03-architecture.md`](docs/03-architecture.md) and [`docs/04-dotnet-solution-structure.md`](docs/04-dotnet-solution-structure.md) — system and code boundaries.
+4. [`docs/07-risks-and-open-questions.md`](docs/07-risks-and-open-questions.md) — proposed decisions, open questions, risks.
+5. [`docs/backlog/README.md`](docs/backlog/README.md) — issue format and coverage.
+6. [`docs/ai/definition-of-done.md`](docs/ai/definition-of-done.md) — the completion gate.
 7. For any implementation task, the issue draft under `docs/backlog/issues/`.
 
 ## 3. Non-negotiables
 
 - **No GitHub writes without explicit user instruction:** no push, issue creation, PR, release, branch protection, or `gh` mutation. Use the dry-run scripts only.
+- **Before any push, stop and list any file that looks personal** — progress logs, Arabic explainer, handoff, notes, prompts, secrets, `.env`, or private data. Never push it.
+- **`.local/` is private:** never force-add, commit, push, link from public docs, or include it in a release. Never add `/.local/` to `.gitignore`; the local exclusion belongs in `.git/info/exclude`.
 - **No secrets in the repository, logs, prompts, tests, or screenshots.** Never print a token, password, master key, or private repository URL.
 - **Clean-room:** do not copy code, comments, tests, schemas, migrations, assets, or prose from Openship or any other project. Behavior and design may be studied; expression must be original.
 - **Public domain:** no `marsa.dev`, `marsa.io`, `marsa.app`, or invented public URL. Use `urn:marsa:*` identifiers and relative documentation links until the owner secures a domain.
@@ -71,18 +75,18 @@ Full details: [`docs/03-architecture.md`](docs/03-architecture.md).
 ```text
 AGENTS.md                  this contract
 opencode.json              agent configuration
-docs/00-*                  identity, vision, progress
+docs/00-*                  identity and vision
 docs/01-*                  requirements
 docs/02-*                  differentiation
 docs/03-12*                architecture, data, API, security, testing, ops
 docs/adr/                  architecture decisions
 docs/backlog/              issue drafts, coverage, milestones
-docs/ai/                   agent guides, prompts, pitfalls
-docs/ar/                   Arabic explainer and glossary
+docs/ai/                   agent guides, pitfalls, completion gate
 .github/                   issue forms, PR template, CI
 scripts/                   docs, labels, and issue automation
 deploy/                    future install and container assets
 src/, tests/               future product code
+.local/                    private owner workspace; untracked, never commit
 ```
 
 ## 7. Workflow for an issue
@@ -94,7 +98,8 @@ src/, tests/               future product code
 5. Add tests that fail without the change. Include the failure path, not only the happy path.
 6. Run the relevant suites plus the docs/backlog checks.
 7. Update the issue's docs, ADR, decision log, and coverage in the same change.
-8. Report evidence: commands, results, and any remaining gap. Do not claim a test passed unless it ran.
+8. Write the beginner Arabic explanation in `.local/learn/NNN-<issue-or-topic>.ar.md`; never commit or link it.
+9. Report evidence: commands, results, explanation file, and any remaining gap. Do not claim a test passed unless it ran.
 
 Branch names: `feat/<issue-slug>`, `fix/<issue-slug>`, `docs/<topic>`. Commits use `type(scope): summary` and reference requirement IDs in the body when useful.
 
@@ -120,6 +125,14 @@ dotnet test Marsa.sln
 
 Do not run `--apply` scripts or any `gh` mutation unless the user explicitly asks.
 
+### Before any push
+
+1. Run `git status --short` and `git diff --cached --name-only`.
+2. List any file that looks personal: progress, Arabic learning, handoff, notes, prompts, costs, secrets, `.env`, private URLs, or customer data.
+3. If the list is not empty, stop. Do not push. Do not touch GitHub.
+4. Confirm `.local/` is ignored with `git check-ignore -v .local/progress.md`.
+5. Only then ask the owner for explicit push approval.
+
 ## 9. Security rules
 
 - Treat every repository, Dockerfile, image, webhook, and hostname as hostile input.
@@ -133,6 +146,8 @@ Do not run `--apply` scripts or any `gh` mutation unless the user explicitly ask
 
 ## 10. Definition of done
 
+The full gate is [`docs/ai/definition-of-done.md`](docs/ai/definition-of-done.md). At minimum:
+
 - Acceptance criteria pass.
 - Tests cover the failure paths that matter.
 - No secret canary appears in logs, events, audit, API, or telemetry.
@@ -140,6 +155,8 @@ Do not run `--apply` scripts or any `gh` mutation unless the user explicitly ask
 - Docs, ADRs, decision log, and indexes are current.
 - The change preserves the one-host, one-service, PostgreSQL, Caddy, and Docker invariants.
 - No new dependency has an unapproved license or an unnecessary native requirement.
+- **Every code change has a beginner Arabic explanation** in `.local/learn/NNN-<issue-or-topic>.ar.md`, written before the task is called done. It explains what changed and why, each new concept with an analogy, every changed file, the exact run and test commands, failure modes, three quiz questions with answers, and what to read next. It is local only: never commit it, push it, link it from public docs, or include it in a release.
+- The private handoff in `.local/handoff/claude-handoff.md` is updated at the end of every phase and every merged issue. It stays under 300 lines and is never committed.
 
 ## 11. Decisions to challenge, not assume
 

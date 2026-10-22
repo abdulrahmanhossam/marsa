@@ -27,7 +27,7 @@ It is deliberately narrower than a general-purpose PaaS. Marsa 0.1 is:
 - **COULD** — useful, explicitly optional for 0.1.
 - **OUT** — excluded from 0.1; see §10.
 
-Every requirement has a stable ID, a milestone, and acceptance criteria. IDs are never reused. A requirement can move milestone only through the decision log in [`00-progress.md`](00-progress.md).
+Every requirement has a stable ID, a milestone, and acceptance criteria. IDs are never reused. A requirement can move milestone only through the decision log in [`07-risks-and-open-questions.md`](07-risks-and-open-questions.md).
 
 ---
 

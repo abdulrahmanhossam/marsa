@@ -45,7 +45,7 @@ Do not invent a public domain, a legal conclusion, a price, or a vendor commitme
 - Keep requirement IDs and milestone IDs verbatim.
 - Add a "Rejected alternatives" line for a proposed decision.
 - Update the decision log in `docs/07-risks-and-open-questions.md`.
-- Update `docs/00-progress.md` at a phase boundary.
+- Update the owner's private progress log and handoff at a phase boundary; never commit them.
 - Update indexes and coverage when files or requirements change.
 
 ## ADRs
@@ -67,7 +67,7 @@ Do not invent a public domain, a legal conclusion, a price, or a vendor commitme
 ## Arabic
 
 - Write natural Modern Standard Arabic, not machine-translated English.
-- Keep English technical terms when they are the clearest, but explain them in the glossary.
+- Keep English technical terms when they are the clearest, but explain them on first use. The owner may keep a private glossary; never commit or link it.
 - Use Arabic punctuation and numerals consistently.
 - Keep code, commands, paths, and logs LTR.
 - Test RTL at 360 px and 1280 px.

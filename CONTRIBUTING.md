@@ -79,8 +79,8 @@ Do not use `ofuq/marsa`, `Ofuq.Marsa.*`, `@marsa/*`, or “Ofuq Marsa” as a pr
 
 - Write in your own words. Prefer concrete behavior over marketing language.
 - Keep links relative unless a public URL is genuinely owned and stable.
-- Add every new document to [`docs/README.md`](docs/README.md).
-- Update the decision log and [`docs/00-progress.md`](docs/00-progress.md) when a phase or important decision changes.
+- Add every new public document to [`docs/README.md`](docs/README.md).
+- Update the public decision log in [`docs/07-risks-and-open-questions.md`](docs/07-risks-and-open-questions.md) when an important decision changes. Do not commit the owner's private progress log.
 - Use stable requirement IDs (`FR-*`, `NFR-*`), ADR numbers, and issue IDs when referring to decisions.
 - Do not claim a test, benchmark, SBOM, or release exists unless it was produced and reviewed.
 - Do not use a screenshot or copied paragraph from another product.
@@ -88,14 +88,18 @@ Do not use `ofuq/marsa`, `Ofuq.Marsa.*`, `@marsa/*`, or “Ofuq Marsa” as a pr
 ### Arabic material
 
 - Use Modern Standard Arabic and explain a technical term on first use.
-- Reuse the terminology and anchors in [`docs/ar/glossary.ar.md`](docs/ar/glossary.ar.md).
 - Keep code, logs, and technical identifiers LTR inside RTL pages.
 - Check RTL layout at small and large widths; do not treat translation as a substitute for layout review.
 - Arabic copy should read naturally, not as a word-for-word translation of English.
+- The owner's Arabic explainer, glossary, and learning notes are private; do not commit or link them from public docs.
 
-## 7. Security and secrets
+## 7. Security, privacy, and the local workspace
 
 - Never commit passwords, tokens, private keys, database dumps, private repository URLs, or customer data.
+- Never commit progress logs, Arabic learning files, handoff files, personal notes, prompts, costs, or `.env` files.
+- The owner's `.local/` directory is excluded through `.git/info/exclude`, not `.gitignore`. Do not force-add it or expose its filenames.
+- Public docs must never link to `.local/`.
+- Before any push, review `git status` and list anything that looks personal. Stop; do not push it.
 - Do not test destructive operations against a real deployment.
 - Do not paste secret values into an issue or pull request. If a secret leaks, rotate it first and then report the exposure.
 - Report vulnerabilities privately according to [`SECURITY.md`](SECURITY.md).
@@ -113,6 +117,8 @@ dotnet format --verify-no-changes
 ```
 
 Also run the relevant PostgreSQL, Docker, Caddy, and E2E lanes described in [`docs/09-testing-strategy.md`](docs/09-testing-strategy.md). A change is not complete because it compiles; it needs the failure paths and the evidence described in [`docs/ai/review-checklist.md`](docs/ai/review-checklist.md).
+
+For every code change, write the beginner Arabic explanation at `.local/learn/NNN-<issue-or-topic>.ar.md` before calling the work done. It is local only, must not be committed or linked from public docs, and must include the explanation, file walkthrough, run/test commands, failure modes, three quiz questions with answers, and next reading. See [`docs/ai/definition-of-done.md`](docs/ai/definition-of-done.md).
 
 ## 9. Review and merge
 

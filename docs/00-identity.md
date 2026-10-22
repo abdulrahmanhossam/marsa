@@ -66,7 +66,7 @@ The product name is centralized so a rename is a deliberate, reviewable change:
 
 1. Change `product`, `product_ar`, and `product_slug` in the YAML block above.
 2. Run a repository-wide, case-sensitive replacement of the old product name, then review the diff. Identifiers that use `marsa` (CLI, config, env prefix, labels, token prefix, URNs) must be renamed with a compatibility plan; renaming a published package or environment prefix is a breaking change.
-3. Update the decision log in [`00-progress.md`](00-progress.md) and the ADR that records the rename.
+3. Update the decision log in [`07-risks-and-open-questions.md`](07-risks-and-open-questions.md) and the ADR that records the rename.
 4. Do not rename the GitHub organization, repository, or published package IDs as part of a product rename without a separate migration plan.
 
 ## 5. Open naming risk

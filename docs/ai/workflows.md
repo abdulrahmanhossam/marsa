@@ -11,10 +11,11 @@
 5. Branch: `feat/<issue-slug>` or `fix/<issue-slug>`.
 6. Implement the smallest vertical slice.
 7. Add tests for the failure path, not only the happy path.
-8. Update docs, ADRs, decision log, and coverage if behavior changed.
-9. Run the narrow tests, then the full relevant suite.
-10. Self-review with `review-checklist.md`.
-11. Report evidence and remaining risk.
+8. Write the private Arabic explanation at `.local/learn/NNN-<issue-or-topic>.ar.md`.
+9. Update docs, ADRs, decision log, and coverage if behavior changed.
+10. Run the narrow tests, then the full relevant suite.
+11. Self-review with `review-checklist.md`.
+12. Report evidence, the explanation file, and remaining risk.
 
 Do not create the GitHub issue or push. The user controls GitHub writes.
 
@@ -36,7 +37,7 @@ If the fix changes a public contract, add an OpenAPI/ADR note and a migration pa
 2. Mark new uncertainty as **PROPOSED**, **INFERRED**, **UNKNOWN**, or **VERIFIED**.
 3. Use relative links and canonical names.
 4. Do not invent a public URL; use `urn:marsa:*`.
-5. Update the indexes and `docs/00-progress.md` if phase state changes.
+5. Update the public indexes. Phase state belongs in the owner's private progress log; never commit it.
 6. Run `python3 scripts/check-docs.py`.
 
 Do not rewrite history to make a decision look cleaner. Add a correction note or superseding ADR.
@@ -118,13 +119,13 @@ For a small non-architectural choice, append to the decision log instead of crea
 
 1. Re-read the phase deliverables and acceptance gates.
 2. Run the phase checks.
-3. Update `docs/00-progress.md`: status, files, decisions, risks, next action.
+3. Update the owner's private progress log and handoff: status, files, decisions, risks, next action. Never commit them.
 4. Commit with `docs: phase N <summary>` or `feat: phase N <summary>`.
 5. Report a two-line status, then continue unless blocked.
 
 ## 12. Context reset
 
-1. Read `docs/00-progress.md`.
+1. Read the owner's private handoff and progress log if available.
 2. Read `docs/00-identity.md`.
 3. Read the current phase section and its linked files.
 4. Read the active issue and dependencies.

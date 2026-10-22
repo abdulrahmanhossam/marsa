@@ -4,7 +4,7 @@
 
 ## 1. Start with state, not assumptions
 
-1. Read [`../00-progress.md`](../00-progress.md) and [`../00-identity.md`](../00-identity.md).
+1. Read the owner-provided private handoff if available, then [`../00-identity.md`](../00-identity.md). Never commit or link the handoff.
 2. Read the issue draft and all `depends_on` issues.
 3. Read the requirement IDs and ADRs named in the issue.
 4. Check whether the repository is still documentation-only. Do not create a solution or code that is not requested by an issue.
@@ -66,6 +66,7 @@ Before saying a task is done:
 - Run the narrowest relevant tests, then the full suite if practical.
 - Run `python3 scripts/validate-backlog.py` for backlog changes.
 - Run `python3 scripts/check-docs.py` for documentation changes.
+- For code changes, write the private Arabic explanation at `.local/learn/NNN-<issue-or-topic>.ar.md` before reporting completion.
 - Keep command output that proves the result.
 - If a command cannot run, say exactly why and what remains unverified.
 
@@ -102,7 +103,7 @@ Stop and report, rather than guessing, when:
 | `docs/00-identity.md` | Naming is owner-decided; do not change without explicit instruction. |
 | `docs/01-product-requirements.md` | Approved baseline; changes need traceability and a decision. |
 | `docs/07-risks-and-open-questions.md` | Append decisions; do not delete history. |
-| `docs/00-progress.md` | Update at phase boundaries; keep resume instructions current. |
+| `.local/` | Private owner workspace; never add, force-add, commit, push, or link it from public docs. |
 | `docs/backlog/issues/*` | Stable slugs; regenerate coverage after edits. |
 | `scripts/*` | Dry-run default; never auto-apply. |
 | `.github/workflows/*` | Least privilege; no secrets in logs. |

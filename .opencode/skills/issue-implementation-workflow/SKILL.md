@@ -7,7 +7,7 @@ description: Use when starting, implementing, or closing a Marsa backlog issue f
 
 ## 1. Load the issue
 
-- Read `docs/00-progress.md`, `AGENTS.md`, and the issue.
+- Read the owner-provided private handoff if available, `AGENTS.md`, and the issue.
 - Read every `depends_on` issue.
 - Read the requirement IDs and roadmap stories in the frontmatter.
 - Read the ADRs and design sections the issue names.
@@ -54,9 +54,10 @@ Record exact commands and results. A skipped test is not a pass.
 - Update the issue draft if behavior changed.
 - Update `docs/07-risks-and-open-questions.md` for a new decision.
 - Update coverage if the requirement map changed.
-- Update `docs/00-progress.md` at a phase boundary.
+- Write the beginner Arabic explanation at `.local/learn/NNN-<issue-or-topic>.ar.md` before calling the work done.
+- Update the owner's private progress log and handoff at a phase boundary; never commit them.
 - Commit with `type(scope): summary`; reference the issue slug and requirement IDs.
-- Report: changed, verified, risks, next.
+- Report: changed, verified, risks, next, and the explanation file.
 - Print a two-line status for phase work, then continue unless blocked.
 
 ## 6. Refuse to fake

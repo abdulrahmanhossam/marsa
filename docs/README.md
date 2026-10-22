@@ -8,8 +8,6 @@
 
 | If you want to… | Read |
 |---|---|
-| Learn the idea in Arabic | [`ar/project-explained.ar.md`](ar/project-explained.ar.md) |
-| Look up an Arabic term | [`ar/glossary.ar.md`](ar/glossary.ar.md) |
 | Understand why Marsa exists | [`00-vision.md`](00-vision.md) |
 | Know the canonical names and URLs | [`00-identity.md`](00-identity.md) |
 | See what 0.1 must do | [`01-product-requirements.md`](01-product-requirements.md) |
@@ -17,8 +15,8 @@
 | Review the security model | [`07-security.md`](07-security.md) |
 | See the construction order | [`08-roadmap.md`](08-roadmap.md) |
 | Pick up an implementation task | [`backlog/README.md`](backlog/README.md) |
-| Resume a previous session | [`00-progress.md`](00-progress.md) |
 | Work with an AI agent | [`../AGENTS.md`](../AGENTS.md) and [`ai/README.md`](ai/README.md) |
+| Know when a change is done | [`ai/definition-of-done.md`](ai/definition-of-done.md) |
 
 ## Core documents
 
@@ -26,7 +24,6 @@
 |---|---|---|
 | [`00-vision.md`](00-vision.md) | Problem, users, principles, non-goals, naming evidence | Decided |
 | [`00-identity.md`](00-identity.md) | Canonical product name, brand, handle, URLs, prefixes | Decided |
-| [`00-progress.md`](00-progress.md) | Phase log, decisions, Git state, next action | Living log |
 | [`01-product-requirements.md`](01-product-requirements.md) | 151 requirement IDs, acceptance criteria, metrics | Phase 2 approved |
 | [`02-differentiation.md`](02-differentiation.md) | Honest competitor comparison, differentiation bets, validation plan | Phase 2 approved |
 | [`03-architecture.md`](03-architecture.md) | Modular monolith, components, state machine, trust boundaries | Proposed for 0.1 |
@@ -80,15 +77,8 @@ The ADR index contains the status and summary of each decision. Every ADR below 
 | [`ai/testing-guide.md`](ai/testing-guide.md) | Test layers, fixtures, commands, required coverage |
 | [`ai/workflows.md`](ai/workflows.md) | Issue, bug, docs, ADR, migration, API, release workflows |
 | [`ai/known-pitfalls.md`](ai/known-pitfalls.md) | Common failure modes and guardrails |
-| [`ai/prompt-library.md`](ai/prompt-library.md) | Reusable prompts for implementation and review |
 | [`ai/review-checklist.md`](ai/review-checklist.md) | Evidence-based self-review checklist |
-
-## Arabic documents
-
-| File | Purpose |
-|---|---|
-| [`ar/project-explained.ar.md`](ar/project-explained.ar.md) | Beginner guide from `git push` to a live HTTPS release, with diagrams and a 10-question quiz |
-| [`ar/glossary.ar.md`](ar/glossary.ar.md) | Grouped Arabic glossary with stable anchors and Marsa-specific context |
+| [`ai/definition-of-done.md`](ai/definition-of-done.md) | Completion gate, Arabic explanation rule, handoff update |
 
 ## Backlog
 
@@ -195,7 +185,7 @@ The ADR index contains the status and summary of each decision. Every ADR below 
 - `03-architecture.md`, `05-data-model.md`, and `06-api-contracts.md` are canonical for implementation contracts.
 - `07-security.md` is canonical for the threat model; `07-risks-and-open-questions.md` is canonical for decisions, questions, and assumptions.
 - `08-roadmap.md` is canonical for construction order and the MVP cut line.
-- The Arabic glossary is canonical for Arabic technical terminology.
+- Arabic user-facing copy follows `docs/ai/coding-standards.md`; the owner may keep a private glossary that is not part of this repository.
 - If a document and an ADR disagree, the ADR’s status and the decision log determine which is current. Record the conflict rather than silently choosing one.
 
 ## Validation

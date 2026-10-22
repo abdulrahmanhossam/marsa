@@ -428,4 +428,3 @@ If any of these is false, the product is not ready for its first external user, 
 - [`06-api-contracts.md`](06-api-contracts.md) — the public contract.
 - [`07-security.md`](07-security.md) — the trust boundaries and threats.
 - [`08-roadmap.md`](08-roadmap.md) — the order of construction.
-- [`ar/project-explained.ar.md`](ar/project-explained.ar.md) — the beginner-friendly Arabic explainer.

@@ -1,7 +1,7 @@
 # Marsa — Risks, Decisions, and Open Questions
 
 > Status: **LIVING DOCUMENT**. Last updated: 2026-10-22.
-> Security controls are in [`07-security.md`](07-security.md). Decisions here are **PROPOSED** until the owner approves them; they are still binding for the current documentation baseline so that later phases do not drift.
+> Security controls are in [`07-security.md`](07-security.md). Decisions here are **PROPOSED** until the owner approves them; entries marked **DECIDED by owner** are already approved. Unapproved decisions are still binding for the current baseline so that later phases do not drift.
 
 ## 1. How to use this document
 
@@ -10,7 +10,7 @@
 - A **risk** is an accepted uncertainty with a mitigation and a trigger for revisiting it.
 - Do not silently change a decision. Add a new entry and link the affected document.
 
-## 2. Decision log for Phases 3–7
+## 2. Decision log for Phases 3–8
 
 | ID | Decision | Status | Alternatives rejected | Why |
 |---|---|---|---|---|
@@ -40,9 +40,11 @@
 | D-034 | The server never deploys its own control-plane project or writes routes for its own control hostname through the dynamic path. | **PROPOSED** | Allow self-deployment; treat the control plane as a normal project. | Self-deployment can take down the operator's only recovery path. The control route stays static. |
 | D-035 | The backlog follows the PRD requirement milestones. Four roadmap rows were corrected without deleting content: E2.1–E2.4 → M2, E0.9 → M6, E5.7 → M5, E9.9 → M5. | **PROPOSED** | Keep the roadmap milestones and split conflicting issues; move the PRD requirements instead. | The PRD is the requirement source of truth; the roadmap rows were stale. The correction is recorded in `docs/backlog/README.md` §7. |
 | D-036 | Use 39 vertically sliced issues for the MVP; allow an `xl` issue when it is a cohesive, testable slice, and split it before parallel work. | **PROPOSED** | One issue per roadmap story (104); one issue per requirement; split every XL by layer. | 39 issues keep dependencies and review overhead manageable while every MUST, NFR, and roadmap story remains mapped. Layer splits would create untestable handoffs. |
-| D-037 | Use a short mandatory `AGENTS.md` contract plus on-demand `docs/ai/` guides and four project skills. | **PROPOSED** | One oversized instruction file; no project skills; docs-only guidance without permissions. | Keeps the always-loaded context small while preserving depth and owner control over GitHub writes. |
+| D-037 | Use a short mandatory `AGENTS.md` contract plus on-demand `docs/ai/` guides and five project skills. | **PROPOSED** | One oversized instruction file; no project skills; docs-only guidance without permissions. | Keeps the always-loaded context small while preserving depth and owner control over GitHub writes. |
 | D-038 | Treat the Arabic explainer as a companion narrative, with the Arabic glossary as canonical terminology. | **PROPOSED** | A full Arabic translation of every specification; English-only onboarding; a second normative contract in Arabic. | The explainer teaches the mental model without creating a second source of truth for changing contracts. |
 | D-039 | The 0.1 gate is all 132 mandatory requirements via 39 issues; a smaller external release is a private preview, not 0.1. | **PROPOSED** | Require all 151 rows including SHOULD/COULD; trim individual MUST acceptance criteria under schedule pressure; call an M0–M5 slice 0.1. | 151 rows are an inventory, not 151 independent features. The cut line preserves the approved PRD while giving a coherent, honestly labeled fallback. |
+| D-040 | Keep the owner’s progress, Arabic learning files, prompts, handoff, notes, costs, and scratch files in a private `.local/` workspace excluded through `.git/info/exclude`. | **DECIDED by owner** | Store them as public docs; track them but rely on review; add them to `.gitignore`. | The public repository keeps only product documentation; local exclusion avoids publishing even the filenames. Public docs must never link into `.local/`. |
+| D-041 | Require a beginner Arabic explanation for every code change before the change is considered done. | **DECIDED by owner** | Write explanations only when asked; rely on English docs; translate the entire specification. | The owner must be able to understand and maintain the system. The file lives at `.local/learn/NNN-<issue-or-topic>.ar.md`, is never committed, and is enforced by `AGENTS.md`, `docs/ai/definition-of-done.md`, the PR template, and the `explain-as-you-build` skill. |
 
 ## 3. Open questions
 

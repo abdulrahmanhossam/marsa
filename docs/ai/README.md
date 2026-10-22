@@ -12,8 +12,8 @@
 5. [`testing-guide.md`](testing-guide.md) — suites, fixtures, and evidence.
 6. [`workflows.md`](workflows.md) — issue, bug, ADR, migration, and release workflows.
 7. [`known-pitfalls.md`](known-pitfalls.md) — failure modes that have bitten self-hosted deployers.
-8. [`prompt-library.md`](prompt-library.md) — reusable prompts with placeholders.
-9. [`review-checklist.md`](review-checklist.md) — self-review before claiming completion.
+8. [`review-checklist.md`](review-checklist.md) — self-review before claiming completion.
+9. [`definition-of-done.md`](definition-of-done.md) — the completion gate, including the Arabic explanation and handoff update.
 
 ## What agents are allowed to do
 
@@ -26,6 +26,7 @@
 
 - Push, create issues, open PRs, publish releases, or change repository settings.
 - Print or commit secrets, tokens, private URLs, or customer data.
+- Commit, push, expose, or publicly link `.local/` progress, Arabic learning, handoff, prompt, or notes files.
 - Copy Openship or third-party code, prose, schemas, tests, or assets.
 - Invent a public domain or a final legal decision.
 - Change an approved requirement without an explicit decision record.
@@ -33,7 +34,7 @@
 
 ## Repository state
 
-The current phase, decisions, and next action live in [`../00-progress.md`](../00-progress.md). Read it before every task; it is the resume point after a context reset.
+The current phase, decisions, and next action may be supplied in the owner's private handoff. Treat it as context, not as a public contract: never commit, quote, or link it from public docs. If no handoff is available, start from the active issue and the public decision log.
 
 ## Configuration changes
 

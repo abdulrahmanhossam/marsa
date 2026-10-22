@@ -9,6 +9,7 @@
 - [ ] Requirement IDs and ADRs are referenced where relevant.
 - [ ] The change does not silently alter an approved requirement.
 - [ ] Docs, ADR, decision log, and coverage are updated together.
+- [ ] For code changes, the beginner Arabic explanation exists at `.local/learn/NNN-<issue-or-topic>.ar.md` and is not committed or linked publicly.
 
 ## 2. Correctness
 
@@ -86,4 +87,5 @@
 - [ ] Verified commands and results are listed.
 - [ ] Remaining risk or follow-up is stated.
 - [ ] No claim of "done" without evidence.
+- [ ] The private handoff at `.local/handoff/claude-handoff.md` is current if the phase or issue is complete.
 - [ ] No push, issue creation, PR, or release was performed.
