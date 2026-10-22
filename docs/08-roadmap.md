@@ -66,8 +66,8 @@ Sizes are relative (S/M/L/XL), not calendar estimates. The project assumes one p
 | Milestone | Theme | Exit criterion | Primary epics |
 |---|---|---|---|
 | **M0** | Walking skeleton | A clean checkout builds, tests, starts with PostgreSQL and Caddy, serves `/health/live` and `/health/ready`, and produces a runnable server image. | E0 |
-| **M1** | Setup, identity, and projects | An owner completes setup, signs in, creates a project, and connects a repository; the project and source are visible after a restart. | E0, E1, E2 |
-| **M2** | Detect and build | A supported sample repository produces an immutable image with visible, redacted build logs; unsupported repositories fail with actionable guidance. | E2, E3, E4 |
+| **M1** | Setup and identity | An owner completes setup, signs in, and the tenant/role invariants pass. | E0, E1 |
+| **M2** | Projects, detect, and build | A project connects to a supported repository, detection explains the plan, and a build produces an immutable image with redacted logs. | E2, E3, E4 |
 | **M3** | Deploy and observe | A release starts, passes health checks, and is visible in realtime and after refresh; a failed health check leaves the old release serving. | E4, E5, E7 |
 | **M4** | Route and secure | A verified hostname serves the healthy release over HTTPS; a failed release never receives traffic; secrets are encrypted and redacted. | E5, E6, E7, E8 |
 | **M5** | Operate and recover | A user can roll back, rotate a secret, inspect audit history, and complete the core workflow from the CLI and the Arabic dashboard. | E5, E8, E9 |
@@ -103,7 +103,7 @@ Every story has acceptance criteria and a relative size. The backlog in Phase 4 
 | E0.6 | Logging, correlation IDs, and ProblemDetails | Every response has `X-Request-Id`; errors use the shared shape; production logs are structured JSON. | S | M0 |
 | E0.7 | Migration workflow | Initial migration applies to an empty PostgreSQL 17 database; a migration bundle builds; startup refuses an incompatible schema. | M | M0 |
 | E0.8 | Container images and compose stack | The server runs as non-root with a read-only root; the compose stack starts PostgreSQL, Caddy, and the server; health checks pass. | M | M0 |
-| E0.9 | License, SBOM, and provenance gate | CI generates a dependency inventory and fails on unapproved licenses; `LICENSE` and `NOTICE` exist; no GPL/unknown code in the default image. | S | M0 |
+| E0.9 | License, SBOM, and provenance gate | CI generates a dependency inventory and fails on unapproved licenses; `LICENSE` and `NOTICE` exist; no GPL/unknown code in the default image. | S | M6 |
 | E0.10 | ADR and decision-log process | A template exists; every significant architectural choice has an ADR; the decision log is updated in the same PR. | S | M0 |
 | E0.11 | Clean-room evidence ledger | Every non-trivial design derived from prior analysis has a provenance note; no copied prose/code/assets. | S | M0 |
 
@@ -136,10 +136,10 @@ Every story has acceptance criteria and a relative size. The backlog in Phase 4 
 
 | ID | Story | Acceptance criteria | Size | Milestone |
 |---|---|---|---|---|
-| E2.1 | Project CRUD | Create/list/read/update/archive/restore; slugs unique per organization; archived projects hidden by default. | M | M1 |
-| E2.2 | Connect a GitHub repository | Public repos work without a credential; private repos use a PAT; invalid credentials return `source.auth_failed`; the token is encrypted. | M | M1 |
-| E2.3 | Connect GitLab and generic Git | GitLab PAT and generic HTTPS work; SSH, `file://`, and local paths are rejected. | M | M1 |
-| E2.4 | Test source and list branches | Source test returns the default branch and up to 100 branches; failure does not persist a partial credential. | S | M1 |
+| E2.1 | Project CRUD | Create/list/read/update/archive/restore; slugs unique per organization; archived projects hidden by default. | M | M2 |
+| E2.2 | Connect a GitHub repository | Public repos work without a credential; private repos use a PAT; invalid credentials return `source.auth_failed`; the token is encrypted. | M | M2 |
+| E2.3 | Connect GitLab and generic Git | GitLab PAT and generic HTTPS work; SSH, `file://`, and local paths are rejected. | M | M2 |
+| E2.4 | Test source and list branches | Source test returns the default branch and up to 100 branches; failure does not persist a partial credential. | S | M2 |
 | E2.5 | Repository size and file guards | Oversized repositories fail with `source.repo_too_large`; submodules are rejected with guidance; limits are configurable. | S | M2 |
 | E2.6 | Webhook ingestion | GitHub/GitLab/generic push webhooks verify signatures, deduplicate deliveries, filter branches, and enqueue at most one deployment. | M | M2 |
 | E2.7 | Webhook secret rotation | Admin rotates the secret; old secret stops immediately; new secret is shown once; audit records the rotation. | S | M2 |
@@ -203,7 +203,7 @@ Every story has acceptance criteria and a relative size. The backlog in Phase 4 
 | E5.4 | Cancellation | Queued/running deployment cancelled at a safe boundary; old release stays serving; cleanup recorded. | M | M3 |
 | E5.5 | Health gate | Release activates only after health + stabilization pass; timeout/crash-loop fails without route changes. | M | M3 |
 | E5.6 | Idempotent recovery | Re-running prepare/build/start/activate is safe; the orchestrator inspects existing resources before creating new ones. | L | M3 |
-| E5.7 | Rollback backend | New deployment pinned to a prior image digest/snapshot; same health gate; failed deployment remains in history; UI/CLI rollback in M5. | M | M4 |
+| E5.7 | Rollback backend | New deployment pinned to a prior image digest/snapshot; same health gate; failed deployment remains in history; UI/CLI rollback in M5. | M | M5 |
 | E5.8 | Reconciliation | Periodic reconciler detects container/route drift and repairs only managed resources; unsafe drift marks the server degraded. | M | M3 |
 | E5.9 | Deployment retention | Configurable history; pruning never removes active or last known-good release. | S | M5 |
 | E5.10 | No auto-rollback | A failed release leaves the old release serving and requires an explicit rollback action. | S | M3 |
@@ -282,7 +282,7 @@ Every story has acceptance criteria and a relative size. The backlog in Phase 4 
 | E9.6 | Dashboard deployment detail | Phases, step timeline, logs, and failure evidence remain visible after refresh; a failed deploy shows the failing step and next action. | M | M3 |
 | E9.7 | Dashboard domains and settings | Add/verify hostname, copy DNS, certificate status, members/tokens/secrets metadata/audit. | M | M4 |
 | E9.8 | Server-rendered UI | Razor Components; no SPA/Node build; interactive islands degrade gracefully. | M | M1 |
-| E9.9 | Bilingual shell and strings | English/Arabic resource pipeline; language switch persists; layout direction flips; code/log blocks stay LTR. | M | M2 |
+| E9.9 | Bilingual shell and strings | English/Arabic resource pipeline; language switch persists; layout direction flips; code/log blocks stay LTR. | M | M5 |
 | E9.10 | Arabic UX completion | Onboarding, deploy pages, errors, domains, secrets, and audit copy reviewed by a native writer. | L | M5 |
 | E9.11 | RTL and responsive tests | 360 px and 1280 px; forms, tables, logs, code blocks, navigation, dialogs. | M | M5 |
 | E9.12 | Accessibility | Keyboard, focus, labels, error summaries; primary flows pass manual + automated checks. | M | M5 |

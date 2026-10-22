@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/ofuqq/marsa/security/policy
+    about: Report vulnerabilities privately; do not open a public issue.
+  - name: Documentation index
+    url: https://github.com/ofuqq/marsa/blob/main/docs/README.md
+    about: Start here for architecture, operations, and product documentation.
+  - name: Questions and ideas
+    url: https://github.com/ofuqq/marsa/discussions
+    about: Ask a question or discuss a proposal before opening a feature request.

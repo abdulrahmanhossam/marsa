@@ -1,0 +1,47 @@
+name: Engineering task
+description: A scoped implementation or maintenance task.
+title: "[Task]: "
+labels:
+  - "type/task"
+  - "status/ready"
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this needed? Link the requirement, ADR, or failing behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is included and what is explicitly excluded?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Test notes
+      description: Which suites or scenarios prove the change?
+  - type: input
+    id: requirements
+    attributes:
+      label: Requirement IDs
+      description: "Example: FR-BUILD-04, NFR-SEC-04."
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Link blocking issues or PRs. Use "None" if unblocked.
+    validations:
+      required: true

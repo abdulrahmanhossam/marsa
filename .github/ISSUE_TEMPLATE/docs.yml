@@ -1,0 +1,43 @@
+name: Documentation
+description: Fix, extend, or translate project documentation.
+title: "[Docs]: "
+labels:
+  - "type/docs"
+  - "status/ready"
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: File or section that needs work.
+      placeholder: "docs/03-architecture.md §8"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is missing, wrong, contradictory, or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: Describe the corrected content and any links to add.
+    validations:
+      required: true
+  - type: input
+    id: requirements
+    attributes:
+      label: Related requirement IDs
+      description: Optional.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: The change preserves the canonical names Marsa, Ofuq, and ofuqq.
+          required: true
+        - label: New claims are marked VERIFIED, INFERRED, PROPOSED, or UNKNOWN where needed.
+          required: true

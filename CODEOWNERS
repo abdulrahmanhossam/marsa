@@ -1,0 +1,10 @@
+# Default owner for the repository.
+* @ofuqq
+
+# High-risk surfaces need explicit review.
+/docs/07-security.md @ofuqq
+/docs/07-risks-and-open-questions.md @ofuqq
+/docs/12-license-and-clean-room.md @ofuqq
+/labels.yml @ofuqq
+/scripts/ @ofuqq
+/.github/ @ofuqq

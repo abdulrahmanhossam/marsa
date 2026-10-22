@@ -1,7 +1,7 @@
 # Marsa — Project Documentation Progress
 
 > Running log. Update after every phase so another session can resume without re-reading the whole conversation.
-> Last updated: 2026-10-22 (Phase 3 complete)
+> Last updated: 2026-10-22 (Phase 4 complete)
 > Repository: `/home/abdulrahman/projects/marsa`
 > Prior analysis (read-only): `/home/abdulrahman/projects/ofuq-openship-analysis/`
 > Source analyzed there: Openship @ `95b8ef715` (branch `feat/GH-1168-disable-service-swap`, based on upstream `b21503155`).
@@ -30,8 +30,8 @@
 | 1. Name and positioning | **CONFIRMED** | `docs/00-vision.md`, `docs/00-identity.md`; name checks recorded below |
 | 2. Differentiation and requirements | **CONFIRMED** | `docs/02-differentiation.md`, `docs/01-product-requirements.md`, `docs/08-roadmap.md` |
 | 3. Technical documentation | **COMPLETE** | `docs/03`–`07`, `09`–`12`, 20 ADRs, decision/risk log |
-| 4. GitHub setup and backlog | Not started | `.github/`, `docs/backlog/`, `scripts/` |
-| 5. AI-agent files | Not started | `AGENTS.md`, `docs/ai/`, `.opencode/skills/`, `opencode.json` |
+| 4. GitHub setup and backlog | **COMPLETE** | 39 issue drafts, coverage, labels, templates, CI, dry-run scripts |
+| 5. AI-agent files | **IN PROGRESS** | `AGENTS.md`, `docs/ai/`, `.opencode/skills/`, `opencode.json` |
 | 6. Arabic explainer | Not started | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md` |
 | 7. Final review | Not started | Link/naming/contradiction review; updates to indexes |
 
@@ -185,25 +185,68 @@ Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`]
 
 ---
 
-## 5. Resume instructions
+## 5. Phase 4 — GitHub setup and backlog
+
+### Work performed
+
+- Wrote 39 vertically sliced issue drafts in `docs/backlog/issues/`, grouped by milestone and epic, each with context, scope, acceptance criteria, likely files, test notes, requirement IDs, roadmap stories, and dependencies.
+- Mapped all **102 MUST** functional requirements, all **30 NFRs**, all **11 SHOULD** where they fit, and all **104 roadmap stories**. The seven `OUT` requirements and the one `COULD` remain explicitly out of scope or post-MVP.
+- Added `labels.yml` with 42 labels, issue forms, a pull-request template, CODEOWNERS, Dependabot, and a docs/backlog CI workflow.
+- Added `scripts/sync-labels.sh` and `scripts/create-issues.sh`; both default to dry-run and require `--apply` before any GitHub mutation.
+- Added `scripts/check-docs.py`, `scripts/validate-backlog.py`, `docs/backlog/README.md`, generated `coverage.md`, and `milestones.md`.
+- Corrected four stale roadmap milestone labels without deleting content; recorded as D-035.
+
+### Files written
+
+| File | Purpose |
+|---|---|
+| `labels.yml` | Label taxonomy used by templates and scripts |
+| `.github/ISSUE_TEMPLATE/*.yml` | Bug, feature, task, docs forms and config |
+| `.github/PULL_REQUEST_TEMPLATE.md` | Requirement/ADR/test/security checklist |
+| `.github/workflows/ci.yml` | Link, coverage, and dry-run validation |
+| `.github/CODEOWNERS`, `.github/dependabot.yml` | Ownership and action updates |
+| `scripts/sync-labels.sh` | Idempotent label sync, dry-run default |
+| `scripts/create-issues.sh` | Idempotent issue creation, dependency linking, dry-run default |
+| `scripts/check-docs.py` | Relative-link and required-file check |
+| `scripts/validate-backlog.py` | Frontmatter, labels, dependencies, mandatory coverage |
+| `docs/backlog/README.md` | Issue format, workflow, coverage, sizing |
+| `docs/backlog/issues/*.md` | 39 issue drafts |
+| `docs/backlog/coverage.md` | Requirement and story coverage |
+| `docs/backlog/milestones.md` | Milestone index |
+
+### Validation
+
+- `python3 scripts/validate-backlog.py`: 39 issues, 143 requirements mapped, 132 mandatory requirements covered.
+- `./scripts/sync-labels.sh --dry-run`: 42 labels, no GitHub changes.
+- `./scripts/create-issues.sh --dry-run`: 39 issues, no GitHub changes.
+- Issue forms, labels, Dependabot, and workflow YAML parse with PyYAML locally.
+
+### Git state
+
+- Phase 4 commit: `docs: phase 4 github backlog` (local only; not pushed).
+
+---
+
+## 6. Resume instructions
 
 To resume after a context reset:
 
 1. Read this file first.
 2. Read `docs/00-vision.md` for intent and `docs/00-identity.md` for canonical naming.
-3. Read the Phase 3 design documents before implementation work:
+3. Read the design and backlog before implementation work:
    - `03-architecture.md`, `04-dotnet-solution-structure.md`, `05-data-model.md`, `06-api-contracts.md`, `07-security.md`, `09-testing-strategy.md`.
    - `07-risks-and-open-questions.md` for decisions and open questions.
+   - `backlog/README.md` and the first ready issue for the current milestone.
 4. Continue at the first phase whose status is not `COMPLETE`/`CONFIRMED`.
 5. Do not overwrite the prior analysis folder.
 
 ### Current next action
 
-Phase 3 is complete and committed. Continue with Phase 4: labels, issue templates, MVP issue drafts, requirement coverage, and dry-run scripts. Then Phase 5, Phase 6, and Phase 7 without stopping.
+Phase 4 is complete and committed. Continue with Phase 5: `AGENTS.md`, `opencode.json`, `docs/ai/*`, and the four `.opencode/skills/` packages. Then Phase 6 and Phase 7 without stopping.
 
 ---
 
-## 6. Decision log (cumulative)
+## 7. Decision log (cumulative)
 
 | ID | Decision | Status | Date | Notes |
 |---|---|---|---|---|
@@ -217,10 +260,12 @@ Phase 3 is complete and committed. Continue with Phase 4: labels, issue template
 | D-008 | Canonical identity lives in `docs/00-identity.md` | **DECIDED** | 2026-10-22 | Single source for product name, brand, handle, repo URL, and identifier prefixes; other docs must not invent variants. |
 | D-009 | MVP boundary and M0–M6 construction order | **CONFIRMED** | 2026-10-22 | Phase 2 approved; see `01-product-requirements.md` and `08-roadmap.md`. |
 | D-010 | Four differentiation bets (D1–D4) | **CONFIRMED** | 2026-10-22 | Phase 2 approved; still hypotheses to validate with users. |
+| D-035 | Backlog follows PRD milestones; four stale roadmap rows corrected | Proposed | 2026-10-22 | E2.1–E2.4 → M2, E0.9 → M6, E5.7 → M5, E9.9 → M5; see `07-risks-and-open-questions.md`. |
+| D-036 | 39 vertically sliced MVP issues; cohesive XL issues allowed | Proposed | 2026-10-22 | Every MUST, NFR, and roadmap story is mapped; split XL before parallel work. |
 
 ---
 
-## 7. Known risks carried into Phase 4
+## 8. Known risks carried into Phase 5
 
 - **Name/domain:** name is decided, but all three obvious domains are taken; trademark clearance is unknown; a prior container-deployment company used “Marsa” at `marsa.io`. Clearance and a domain are release gates; Rasif remains the contingency.
 - **Scope creep:** the product can easily become a broad Coolify competitor. The MVP must stay single-host, single-service, Docker-only.

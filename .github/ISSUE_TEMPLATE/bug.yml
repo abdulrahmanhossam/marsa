@@ -1,0 +1,68 @@
+name: Bug report
+description: Report incorrect, unsafe, or confusing behavior.
+title: "[Bug]: "
+labels:
+  - "type/bug"
+  - "status/needs-review"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets, tokens, private repository URLs, or customer data.
+        Report security vulnerabilities privately through SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Marsa version
+      description: Release tag or commit SHA.
+      placeholder: "0.1.0 or 5699096"
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installation
+      options:
+        - Docker Compose
+        - Single server image
+        - Local development
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted logs or screenshots
+      description: Remove secrets, tokens, hostnames, and private URLs.
+      render: text
+  - type: input
+    id: requirements
+    attributes:
+      label: Related requirement IDs
+      description: "Optional. Example: FR-DEP-07, NFR-REL-03."
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed secrets and private data from this report.
+          required: true
+        - label: I searched existing issues first.
+          required: true
