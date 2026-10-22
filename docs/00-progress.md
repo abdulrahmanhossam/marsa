@@ -1,7 +1,7 @@
 # Marsa — Project Documentation Progress
 
 > Running log. Update after every phase so another session can resume without re-reading the whole conversation.
-> Last updated: 2026-10-22 (Phase 5 complete)
+> Last updated: 2026-10-22 (Phase 6 complete)
 > Repository: `/home/abdulrahman/projects/marsa`
 > Prior analysis (read-only): `/home/abdulrahman/projects/ofuq-openship-analysis/`
 > Source analyzed there: Openship @ `95b8ef715` (branch `feat/GH-1168-disable-service-swap`, based on upstream `b21503155`).
@@ -32,7 +32,7 @@
 | 3. Technical documentation | **COMPLETE** | `docs/03`–`07`, `09`–`12`, 20 ADRs, decision/risk log |
 | 4. GitHub setup and backlog | **COMPLETE** | 39 issue drafts, coverage, labels, templates, CI, dry-run scripts |
 | 5. AI-agent files | **COMPLETE** | `AGENTS.md`, `opencode.json`, `docs/ai/`, four `.opencode/skills/` packages |
-| 6. Arabic explainer | Not started | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md` |
+| 6. Arabic explainer | **COMPLETE** | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md`; 10-question quiz; honest competitor table |
 | 7. Final review | Not started | Link/naming/contradiction review; updates to indexes |
 
 ---
@@ -268,7 +268,7 @@ Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`]
 - `opencode debug config`: config resolved successfully with the project instructions, skill path, reference, and permissions.
 - `opencode debug skill`: loaded nine skills, including all four project skills.
 - `opencode.json` parses as JSON; skill frontmatter parses as YAML and names match directories.
-- `python3 scripts/check-docs.py`: only the expected Phase 6/7 files remain missing (`README.md`, `LICENSE`, `docs/README.md`, both Arabic files); the one broken link is the planned Arabic explainer link.
+- At Phase 5 close, `python3 scripts/check-docs.py` reported only the expected Phase 6/7 files missing (`README.md`, `LICENSE`, `docs/README.md`, both Arabic files), plus the planned Arabic explainer link. Those are resolved except the Phase 7 files.
 - No GitHub write, issue creation, label sync, or push was performed.
 
 ### Git state
@@ -277,7 +277,54 @@ Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`]
 
 ---
 
-## 7. Resume instructions
+## 7. Phase 6 — Arabic explainer
+
+### Work performed
+
+- Wrote `docs/ar/project-explained.ar.md` for a beginner who knows basic programming but not deployment. It uses Modern Standard Arabic, short sections, the harbor analogy, and progressive disclosure.
+- Structured the narrative around **نورا**, an ASP.NET Core developer deploying `app.example.com`: setup, source connection, first deploy, failure handling, and rollback.
+- Added Mermaid diagrams for the push-to-live sequence, the rollback decision, the system architecture, and the deployment state machine.
+- Added a failure table that names the resulting state and whether the previous release keeps serving.
+- Explained the core concepts: Git, image/container, project/environment/service, deployment/release, immutable snapshot, health gate, Caddy routing, envelope encryption, audit, worker lease, idempotency, and reconciliation.
+- Added security sections on the Docker socket, the Caddy admin socket, secrets, authentication/authorization, and the limits of what Marsa can protect.
+- Added a time-stamped, honest comparison with Openship, Coolify, and Dokku, including where Marsa does not win.
+- Added a section on building with AI agents and the limits of agent autonomy.
+- Added the M0–M6 roadmap, a beginner learning path, a first-deploy walkthrough, a 10-question quiz with hidden answers, an FAQ, and links to deeper docs.
+- Wrote `docs/ar/glossary.ar.md` with 200+ grouped entries and stable anchors covering deployment, Git, Docker, networking, data, security, interfaces, .NET, project management, operations, states, and licensing.
+- Clarified the difference between a **Marsa PAT** (`marsa_pat_`, API/CLI) and a **Git provider token** (GitHub/GitLab credential for private repositories). The explainer previously used “PAT” ambiguously; both files now distinguish them.
+- Fixed glossary polish issues found during review: renamed “previous release” correctly, removed a duplicate firewall entry, and added missing terms such as host, control plane, build plan, cutover, Docker socket, Caddy admin socket, Docker Compose, Kubernetes, and MCP.
+
+### Key decisions
+
+- The Arabic explainer is a **companion entry point**, not a full translation of the English specification. It teaches the mental model and links to the canonical documents for exact contracts.
+- The explainer uses Modern Standard Arabic and avoids dialect so it remains readable across regions.
+- The glossary is the canonical Arabic terminology reference; future Arabic docs should reuse its terms and anchors.
+- Competitor claims are explicitly time-stamped and framed as public-information observations, not benchmarks or superiority claims.
+- Mermaid is used as text-based diagrams so the documents remain reviewable in Git; rendering is not part of CI.
+
+### Files written
+
+| File | Purpose |
+|---|---|
+| `docs/ar/project-explained.ar.md` | Beginner narrative from `git push` to a live HTTPS release, with diagrams, failure paths, quiz, and links |
+| `docs/ar/glossary.ar.md` | Grouped Arabic glossary with stable anchors and Marsa-specific context |
+
+### Validation
+
+- Both Arabic files parse cleanly: no broken relative links, no broken in-page fragment links, and no duplicate `<a id>` anchors.
+- All 10 quiz answer blocks have matching `<details>`/`</details>` tags.
+- `python3 scripts/check-docs.py`: only the expected Phase 7 files remain missing (`README.md`, `LICENSE`, `docs/README.md`).
+- `python3 scripts/validate-backlog.py`: 39 issues, 143 requirements mapped, 132 mandatory requirements covered.
+- Mermaid blocks were reviewed manually; no Mermaid renderer is installed, so rendering was not executed.
+- No GitHub write, issue creation, label sync, or push was performed.
+
+### Git state
+
+- Phase 6 commit: `docs: phase 6 arabic explainer` (local only; not pushed).
+
+---
+
+## 8. Resume instructions
 
 To resume after a context reset:
 
@@ -293,11 +340,11 @@ To resume after a context reset:
 
 ### Current next action
 
-Phase 5 is complete and committed. Start Phase 6: write the beginner-friendly Arabic explainer and glossary, validate links, update this log, and commit. Then Phase 7 without stopping.
+Phase 6 is complete and committed. Start Phase 7: create the missing root files and `docs/README.md`, audit links/naming/contradictions and requirement coverage, add the MVP cut line to `docs/08-roadmap.md`, run all checks, commit, and deliver the final report.
 
 ---
 
-## 8. Decision log (cumulative)
+## 9. Decision log (cumulative)
 
 | ID | Decision | Status | Date | Notes |
 |---|---|---|---|---|
@@ -314,10 +361,11 @@ Phase 5 is complete and committed. Start Phase 6: write the beginner-friendly Ar
 | D-035 | Backlog follows PRD milestones; four stale roadmap rows corrected | Proposed | 2026-10-22 | E2.1–E2.4 → M2, E0.9 → M6, E5.7 → M5, E9.9 → M5; see `07-risks-and-open-questions.md`. |
 | D-036 | 39 vertically sliced MVP issues; cohesive XL issues allowed | Proposed | 2026-10-22 | Every MUST, NFR, and roadmap story is mapped; split XL before parallel work. |
 | D-037 | Agent guidance uses a short contract plus on-demand guides and skills | Proposed | 2026-10-22 | `AGENTS.md` is mandatory; `docs/ai/` and four project skills add depth; `opencode.json` denies GitHub writes. |
+| D-038 | Arabic explainer is a companion narrative, with the glossary as canonical Arabic terminology | Proposed | 2026-10-22 | The explainer teaches the mental model and links to canonical English specs; it is not a full translation or a second source of truth for contracts. |
 
 ---
 
-## 9. Known risks carried into Phase 6
+## 10. Known risks carried into Phase 7
 
 - **Name/domain:** name is decided, but all three obvious domains are taken; trademark clearance is unknown; a prior container-deployment company used “Marsa” at `marsa.io`. Clearance and a domain are release gates; Rasif remains the contingency.
 - **Scope creep:** the product can easily become a broad Coolify competitor. The MVP must stay single-host, single-service, Docker-only.
@@ -330,3 +378,7 @@ Phase 5 is complete and committed. Start Phase 6: write the beginner-friendly Ar
 - **Clean-room evidence:** the same analyst read Openship; the process must be described honestly, not as a formal double-blind clean room.
 - **Backlog regeneration:** `coverage.md` and `milestones.md` were produced by a temporary generator outside the repository. Future issue edits need the generator restored or the indexes updated manually; `validate-backlog.py` checks mandatory coverage but does not regenerate them.
 - **Agent configuration drift:** `opencode.json` and the four skills load only after restarting a running session. A stale session may show old permissions or miss project skills.
+- **Arabic editorial review:** the explainer and glossary are written but not reviewed by an independent native editor. Terminology and tone should be reviewed before publication; the glossary anchors reduce drift.
+- **Diagram rendering:** Mermaid syntax was reviewed manually but not rendered in CI. A broken diagram would not fail the current checks; add a render check if diagrams become a release artifact.
+- **Arabic docs as a second surface:** the explainer can drift from the English specs. Treat the specifications as canonical for contracts and update the explainer when those contracts change.
+- **Scope count:** 151 requirements still need an explicit MVP cut line in Phase 7, so the project does not imply that every requirement is required for the first usable release.
