@@ -1,7 +1,7 @@
 # Marsa — Project Documentation Progress
 
 > Running log. Update after every phase so another session can resume without re-reading the whole conversation.
-> Last updated: 2026-10-22 (Phase 2 complete; awaiting confirmation)
+> Last updated: 2026-10-22 (Phase 3 complete)
 > Repository: `/home/abdulrahman/projects/marsa`
 > Prior analysis (read-only): `/home/abdulrahman/projects/ofuq-openship-analysis/`
 > Source analyzed there: Openship @ `95b8ef715` (branch `feat/GH-1168-disable-service-swap`, based on upstream `b21503155`).
@@ -16,9 +16,9 @@
 - No GitHub writes, issues, pushes, or releases. No `gh` mutation commands.
 - Clean-room: behavior and design in our own words. No copied Openship code, comments, tests, schemas, migrations, assets, or prose. No GPL component in the default distribution.
 - One file at a time; after writing, re-read for contradictions and cross-link.
-- Stop for user confirmation after **Phase 1**, **Phase 2**, and **Phase 5**.
-- Ask at most one question at a time, only when blocked.
-- Every phase ends with a five-line summary.
+- Phase 2 is approved. Continue autonomously through Phase 7; stop only if truly blocked.
+- Do not ask questions. Mark needed decisions **PROPOSED** and record them in `docs/07-risks-and-open-questions.md`.
+- Every phase ends with a two-line status, then the next phase starts immediately.
 - License is **PROPOSED** Apache-2.0; do not treat it as final until the user confirms.
 
 ---
@@ -28,8 +28,8 @@
 | Phase | Status | Deliverables |
 |---|---|---|
 | 1. Name and positioning | **CONFIRMED** | `docs/00-vision.md`, `docs/00-identity.md`; name checks recorded below |
-| 2. Differentiation and requirements | **AWAITING CONFIRMATION** | `docs/02-differentiation.md`, `docs/01-product-requirements.md`, `docs/08-roadmap.md` |
-| 3. Technical documentation | Not started | `docs/03`–`07`, `09`–`12`, ADRs |
+| 2. Differentiation and requirements | **CONFIRMED** | `docs/02-differentiation.md`, `docs/01-product-requirements.md`, `docs/08-roadmap.md` |
+| 3. Technical documentation | **COMPLETE** | `docs/03`–`07`, `09`–`12`, 20 ADRs, decision/risk log |
 | 4. GitHub setup and backlog | Not started | `.github/`, `docs/backlog/`, `scripts/` |
 | 5. AI-agent files | Not started | `AGENTS.md`, `docs/ai/`, `.opencode/skills/`, `opencode.json` |
 | 6. Arabic explainer | Not started | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md` |
@@ -141,25 +141,69 @@
 
 ---
 
-## 4. Resume instructions
+## 4. Phase 3 — Technical documentation
+
+### Work performed
+
+- Re-read the prior architecture, solution-structure, data/API, risk, roadmap, and license analyses.
+- Wrote the architecture baseline, including C4 context/container/component diagrams, invariants, topology, workflows, state machine, rollback, reconciliation, domains/TLS, reliability, and observability.
+- Wrote the .NET solution structure, project references, folder layout, package policy, conventions, composition, error handling, and CI gates.
+- Wrote the data model (tables, relationships, constraints, enums, snapshots, leases, retention) and the API contract (auth, endpoints, errors, idempotency, pagination, realtime, webhooks, `marsa.json`).
+- Wrote the security model and threat boundaries, testing strategy, development environment, release/versioning policy, and license/clean-room policy.
+- Wrote 20 ADRs covering the architecture decisions required by the phase.
+
+### Key decisions
+
+- Canonical deployment states are the Phase 2 names: `queued` → `preparing` → `building` → `deploying` → `health_checking` → `routing` → terminal outcome.
+- Caddy applies the complete Marsa-managed route set, including the static control route, over a Unix socket.
+- Runtime application logs are persisted separately from deployment logs (14-day default).
+- Generic idempotency records cover deployments, rollbacks, domains, and secrets.
+- The Docker socket is accepted as root-equivalent residual risk for 0.1; a socket proxy/host agent is a release-review trigger.
+- First-party code and docs are Apache-2.0 **PROPOSED**; no GPL/unknown material in the default distribution.
+
+Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`](07-risks-and-open-questions.md).
+
+### Files written
+
+| File | Purpose |
+|---|---|
+| `docs/03-architecture.md` | C4 views, topology, modules, workflows, state machine, reliability |
+| `docs/04-dotnet-solution-structure.md` | Solution/project layout, references, conventions, CI |
+| `docs/05-data-model.md` | PostgreSQL schema, constraints, enums, retention, migrations |
+| `docs/06-api-contracts.md` | `/api/v1` conventions, endpoints, errors, realtime, webhooks, `marsa.json` |
+| `docs/07-security.md` | Threat model, auth, authorization, secrets, isolation, SSRF, supply chain |
+| `docs/07-risks-and-open-questions.md` | Decisions, open questions, risks, assumptions, spikes |
+| `docs/09-testing-strategy.md` | Test pyramid, suites, E2E, security, contract, CI |
+| `docs/10-dev-environment.md` | Prerequisites, local stack, configuration, debugging |
+| `docs/11-release-and-versioning.md` | SemVer, artifacts, install/upgrade, backup, release gates |
+| `docs/12-license-and-clean-room.md` | Apache-2.0 policy, provenance, dependency rules, SBOM |
+| `docs/adr/0001`–`0020` | Architecture decision records |
+
+### Git state
+
+- Phase 3 commit: `docs: phase 3 architecture and design` (local only; not pushed).
+
+---
+
+## 5. Resume instructions
 
 To resume after a context reset:
 
 1. Read this file first.
 2. Read `docs/00-vision.md` for intent and `docs/00-identity.md` for canonical naming.
-3. Read the prior analysis files relevant to the next phase:
-   - Phase 3: `03-architecture.md`, `04-dotnet-solution-structure.md`, `05-data-model-and-api.md`, `07-risks-and-open-questions.md`, `08-license-notes.md`.
-   - Phase 4: `06-roadmap-and-mvp.md`, `01-product-requirements.md`, and this file.
+3. Read the Phase 3 design documents before implementation work:
+   - `03-architecture.md`, `04-dotnet-solution-structure.md`, `05-data-model.md`, `06-api-contracts.md`, `07-security.md`, `09-testing-strategy.md`.
+   - `07-risks-and-open-questions.md` for decisions and open questions.
 4. Continue at the first phase whose status is not `COMPLETE`/`CONFIRMED`.
 5. Do not overwrite the prior analysis folder.
 
 ### Current next action
 
-Phase 2 is written, reviewed, and committed locally. Wait for the Phase 2 gate. On approval, start Phase 3 with `docs/03-architecture.md` first (one file at a time), then `04`–`07` and `09`–`12`, plus the ADRs. Stop again after Phase 5.
+Phase 3 is complete and committed. Continue with Phase 4: labels, issue templates, MVP issue drafts, requirement coverage, and dry-run scripts. Then Phase 5, Phase 6, and Phase 7 without stopping.
 
 ---
 
-## 5. Decision log (cumulative)
+## 6. Decision log (cumulative)
 
 | ID | Decision | Status | Date | Notes |
 |---|---|---|---|---|
@@ -171,12 +215,12 @@ Phase 2 is written, reviewed, and committed locally. Wait for the Phase 2 gate. 
 | D-006 | MCP/AI mutation deferred beyond MVP | Proposed, inherited | 2026-10-22 | Prior analysis `03-architecture.md` §14.2. |
 | D-007 | GitHub handle `ofuqq`; repository `ofuqq/marsa`; default branch `main` | **DECIDED** | 2026-10-22 | Two `q`s in URLs/remotes/CODEOWNERS/badges/package identifiers; brand prose stays Ofuq. |
 | D-008 | Canonical identity lives in `docs/00-identity.md` | **DECIDED** | 2026-10-22 | Single source for product name, brand, handle, repo URL, and identifier prefixes; other docs must not invent variants. |
-| D-009 | MVP boundary and M0–M6 construction order | Proposed | 2026-10-22 | Awaiting Phase 2 confirmation; see `01-product-requirements.md` and `08-roadmap.md`. |
-| D-010 | Four differentiation bets (D1–D4) | Proposed | 2026-10-22 | Awaiting Phase 2 confirmation; hypotheses to validate, not proven claims. |
+| D-009 | MVP boundary and M0–M6 construction order | **CONFIRMED** | 2026-10-22 | Phase 2 approved; see `01-product-requirements.md` and `08-roadmap.md`. |
+| D-010 | Four differentiation bets (D1–D4) | **CONFIRMED** | 2026-10-22 | Phase 2 approved; still hypotheses to validate with users. |
 
 ---
 
-## 6. Known risks carried into Phase 3
+## 7. Known risks carried into Phase 4
 
 - **Name/domain:** name is decided, but all three obvious domains are taken; trademark clearance is unknown; a prior container-deployment company used “Marsa” at `marsa.io`. Clearance and a domain are release gates; Rasif remains the contingency.
 - **Scope creep:** the product can easily become a broad Coolify competitor. The MVP must stay single-host, single-service, Docker-only.
