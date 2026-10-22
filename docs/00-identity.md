@@ -38,7 +38,7 @@ identity:
 | Context | Value | Rule |
 |---|---|---|
 | Product name in prose and UI | **Marsa** (مرسى) | The product is always “Marsa,” never “Ofuq Marsa” or “Marsa by Ofuq” in the UI. “Marsa, an Ofuq project” is allowed on first mention. |
-| Parent brand, copyright, legal owner | **Ofuq** (أفق) | The brand keeps one `q`. Do not use `ofuqq` in prose, headings, or UI copy. |
+| Parent brand, copyright, legal owner | **Ofuq** (أفق) | The brand keeps one `q`. Do not use `ofuqq` as the brand name in prose, headings, or UI copy. |
 | GitHub organization, URL, remote, CODEOWNERS, badges | **ofuqq** | The handle has two `q`s. Use it only where a URL or account handle is required. |
 | Repository | `ofuqq/marsa` | Remote: `https://github.com/ofuqq/marsa.git`. Default branch: `main`. |
 | .NET namespaces and assemblies | `Marsa.*` | Code-facing identifiers use the product name, not the brand or handle. |
