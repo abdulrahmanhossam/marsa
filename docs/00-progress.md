@@ -1,7 +1,7 @@
 # Marsa — Project Documentation Progress
 
 > Running log. Update after every phase so another session can resume without re-reading the whole conversation.
-> Last updated: 2026-10-22 (Phase 4 complete)
+> Last updated: 2026-10-22 (Phase 5 complete)
 > Repository: `/home/abdulrahman/projects/marsa`
 > Prior analysis (read-only): `/home/abdulrahman/projects/ofuq-openship-analysis/`
 > Source analyzed there: Openship @ `95b8ef715` (branch `feat/GH-1168-disable-service-swap`, based on upstream `b21503155`).
@@ -31,7 +31,7 @@
 | 2. Differentiation and requirements | **CONFIRMED** | `docs/02-differentiation.md`, `docs/01-product-requirements.md`, `docs/08-roadmap.md` |
 | 3. Technical documentation | **COMPLETE** | `docs/03`–`07`, `09`–`12`, 20 ADRs, decision/risk log |
 | 4. GitHub setup and backlog | **COMPLETE** | 39 issue drafts, coverage, labels, templates, CI, dry-run scripts |
-| 5. AI-agent files | **IN PROGRESS** | `AGENTS.md`, `docs/ai/`, `.opencode/skills/`, `opencode.json` |
+| 5. AI-agent files | **COMPLETE** | `AGENTS.md`, `opencode.json`, `docs/ai/`, four `.opencode/skills/` packages |
 | 6. Arabic explainer | Not started | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md` |
 | 7. Final review | Not started | Link/naming/contradiction review; updates to indexes |
 
@@ -227,26 +227,77 @@ Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`]
 
 ---
 
-## 6. Resume instructions
+## 6. Phase 5 — AI-agent files
+
+### Work performed
+
+- Wrote root `AGENTS.md` as the repository-wide operating contract: reading order, non-negotiables, canonical names, architecture in brief, issue workflow, commands, security rules, definition of done, and decisions to challenge.
+- Wrote root `opencode.json`: schema, instruction files, project skill path, hidden read-only reference to `../ofuq-openship-analysis`, and permissions that deny `git push`, `gh issue`, `gh pr`, `gh release`, `gh api`, `gh repo edit`, and ask before recursive deletion.
+- Wrote nine agent guides under `docs/ai/`: index, operating loop, architecture context, coding standards, testing, workflows, pitfalls, prompt library, and review checklist.
+- Added four project skills under `.opencode/skills/`: `dotnet-conventions`, `deployment-engine-guidelines`, `issue-implementation-workflow`, and `doc-writing`.
+- Checked all `AGENTS.md`, `docs/ai/`, and skill links; fixed the prior-analysis path in `docs/ai/README.md`.
+- Documented that a running opencode session must be restarted after configuration or skill changes.
+
+### Key decisions
+
+- Agents get a short mandatory contract (`AGENTS.md`) plus on-demand depth (`docs/ai/` and four skills), rather than one oversized instruction file.
+- GitHub writes stay owner-controlled; `opencode.json` denies them at the permission layer as well as documenting them.
+- The prior analysis is available as a hidden read-only reference, not as copyable source.
+- Skill names match their directories and use lowercase hyphenated identifiers.
+- Agent guidance is **PROPOSED** operating policy until the owner reviews it; it does not override approved product requirements.
+
+### Files written
+
+| File | Purpose |
+|---|---|
+| `AGENTS.md` | Repository-wide agent and contributor contract |
+| `opencode.json` | Instructions, project skills, reference, and write permissions |
+| `docs/ai/README.md` | Index, reading order, allowed and forbidden actions, restart note |
+| `docs/ai/agent-guide.md` | Task classification, planning, uncertainty, evidence, reporting |
+| `docs/ai/architecture-context.md` | Boundaries, invariants, states, workers, health, routing |
+| `docs/ai/coding-standards.md` | .NET, API, EF Core, Docker/Caddy, UI, and error rules |
+| `docs/ai/testing-guide.md` | Test layers, commands, fixtures, required coverage |
+| `docs/ai/workflows.md` | Issue, bug, docs, ADR, migration, API, and release procedures |
+| `docs/ai/known-pitfalls.md` | Docker, Caddy, health, auth, persistence, secrets, Git, logs |
+| `docs/ai/prompt-library.md` | Reusable prompts for implementation, review, bugs, docs, ADRs |
+| `docs/ai/review-checklist.md` | Evidence-based self-review checklist |
+| `.opencode/skills/*/SKILL.md` | Four project-specific skills |
+
+### Validation
+
+- `opencode debug config`: config resolved successfully with the project instructions, skill path, reference, and permissions.
+- `opencode debug skill`: loaded nine skills, including all four project skills.
+- `opencode.json` parses as JSON; skill frontmatter parses as YAML and names match directories.
+- `python3 scripts/check-docs.py`: only the expected Phase 6/7 files remain missing (`README.md`, `LICENSE`, `docs/README.md`, both Arabic files); the one broken link is the planned Arabic explainer link.
+- No GitHub write, issue creation, label sync, or push was performed.
+
+### Git state
+
+- Phase 5 commit: `docs: phase 5 ai agent files` (local only; not pushed).
+
+---
+
+## 7. Resume instructions
 
 To resume after a context reset:
 
 1. Read this file first.
 2. Read `docs/00-vision.md` for intent and `docs/00-identity.md` for canonical naming.
-3. Read the design and backlog before implementation work:
+3. Read `AGENTS.md` and `docs/ai/agent-guide.md` for the operating contract.
+4. Read the design and backlog before implementation work:
    - `03-architecture.md`, `04-dotnet-solution-structure.md`, `05-data-model.md`, `06-api-contracts.md`, `07-security.md`, `09-testing-strategy.md`.
    - `07-risks-and-open-questions.md` for decisions and open questions.
    - `backlog/README.md` and the first ready issue for the current milestone.
-4. Continue at the first phase whose status is not `COMPLETE`/`CONFIRMED`.
-5. Do not overwrite the prior analysis folder.
+5. Continue at the first phase whose status is not `COMPLETE`/`CONFIRMED`.
+6. Do not overwrite the prior analysis folder.
 
 ### Current next action
 
-Phase 4 is complete and committed. Continue with Phase 5: `AGENTS.md`, `opencode.json`, `docs/ai/*`, and the four `.opencode/skills/` packages. Then Phase 6 and Phase 7 without stopping.
+Phase 5 is complete and committed. Start Phase 6: write the beginner-friendly Arabic explainer and glossary, validate links, update this log, and commit. Then Phase 7 without stopping.
 
 ---
 
-## 7. Decision log (cumulative)
+## 8. Decision log (cumulative)
 
 | ID | Decision | Status | Date | Notes |
 |---|---|---|---|---|
@@ -262,10 +313,11 @@ Phase 4 is complete and committed. Continue with Phase 5: `AGENTS.md`, `opencode
 | D-010 | Four differentiation bets (D1–D4) | **CONFIRMED** | 2026-10-22 | Phase 2 approved; still hypotheses to validate with users. |
 | D-035 | Backlog follows PRD milestones; four stale roadmap rows corrected | Proposed | 2026-10-22 | E2.1–E2.4 → M2, E0.9 → M6, E5.7 → M5, E9.9 → M5; see `07-risks-and-open-questions.md`. |
 | D-036 | 39 vertically sliced MVP issues; cohesive XL issues allowed | Proposed | 2026-10-22 | Every MUST, NFR, and roadmap story is mapped; split XL before parallel work. |
+| D-037 | Agent guidance uses a short contract plus on-demand guides and skills | Proposed | 2026-10-22 | `AGENTS.md` is mandatory; `docs/ai/` and four project skills add depth; `opencode.json` denies GitHub writes. |
 
 ---
 
-## 8. Known risks carried into Phase 5
+## 9. Known risks carried into Phase 6
 
 - **Name/domain:** name is decided, but all three obvious domains are taken; trademark clearance is unknown; a prior container-deployment company used “Marsa” at `marsa.io`. Clearance and a domain are release gates; Rasif remains the contingency.
 - **Scope creep:** the product can easily become a broad Coolify competitor. The MVP must stay single-host, single-service, Docker-only.
@@ -276,3 +328,5 @@ Phase 4 is complete and committed. Continue with Phase 5: `AGENTS.md`, `opencode
 - **Docker socket:** root-equivalent host access is the central security risk.
 - **License contamination:** no GPL or unknown-license code in the default distribution.
 - **Clean-room evidence:** the same analyst read Openship; the process must be described honestly, not as a formal double-blind clean room.
+- **Backlog regeneration:** `coverage.md` and `milestones.md` were produced by a temporary generator outside the repository. Future issue edits need the generator restored or the indexes updated manually; `validate-backlog.py` checks mandatory coverage but does not regenerate them.
+- **Agent configuration drift:** `opencode.json` and the four skills load only after restarting a running session. A stale session may show old permissions or miss project skills.

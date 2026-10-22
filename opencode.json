@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    "docs/ai/agent-guide.md",
+    "docs/ai/architecture-context.md",
+    "docs/ai/coding-standards.md"
+  ],
+  "skills": {
+    "paths": [
+      ".opencode/skills"
+    ]
+  },
+  "references": {
+    "openship-analysis": {
+      "path": "../ofuq-openship-analysis",
+      "description": "Read-only prior analysis of Openship. Never copy code, prose, schemas, or assets from it.",
+      "hidden": true
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "allow",
+      "git push": "deny",
+      "git push *": "deny",
+      "gh issue *": "deny",
+      "gh pr *": "deny",
+      "gh release *": "deny",
+      "gh api *": "deny",
+      "gh repo edit *": "deny",
+      "rm -rf *": "ask"
+    }
+  }
+}
