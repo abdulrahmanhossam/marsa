@@ -1,7 +1,7 @@
 # Marsa — Project Documentation Progress
 
 > Running log. Update after every phase so another session can resume without re-reading the whole conversation.
-> Last updated: 2026-10-22 (Phase 6 complete)
+> Last updated: 2026-10-22 (Phase 7 complete)
 > Repository: `/home/abdulrahman/projects/marsa`
 > Prior analysis (read-only): `/home/abdulrahman/projects/ofuq-openship-analysis/`
 > Source analyzed there: Openship @ `95b8ef715` (branch `feat/GH-1168-disable-service-swap`, based on upstream `b21503155`).
@@ -16,7 +16,7 @@
 - No GitHub writes, issues, pushes, or releases. No `gh` mutation commands.
 - Clean-room: behavior and design in our own words. No copied Openship code, comments, tests, schemas, migrations, assets, or prose. No GPL component in the default distribution.
 - One file at a time; after writing, re-read for contradictions and cross-link.
-- Phase 2 is approved. Continue autonomously through Phase 7; stop only if truly blocked.
+- Phases 2–7 are approved/complete. The repository is ready for a final report and owner review; do not push or mutate GitHub without the owner.
 - Do not ask questions. Mark needed decisions **PROPOSED** and record them in `docs/07-risks-and-open-questions.md`.
 - Every phase ends with a two-line status, then the next phase starts immediately.
 - License is **PROPOSED** Apache-2.0; do not treat it as final until the user confirms.
@@ -33,7 +33,7 @@
 | 4. GitHub setup and backlog | **COMPLETE** | 39 issue drafts, coverage, labels, templates, CI, dry-run scripts |
 | 5. AI-agent files | **COMPLETE** | `AGENTS.md`, `opencode.json`, `docs/ai/`, four `.opencode/skills/` packages |
 | 6. Arabic explainer | **COMPLETE** | `docs/ar/project-explained.ar.md`, `docs/ar/glossary.ar.md`; 10-question quiz; honest competitor table |
-| 7. Final review | Not started | Link/naming/contradiction review; updates to indexes |
+| 7. Final review | **COMPLETE** | Root project files, `docs/README.md`, link/naming/contradiction audit, MVP cut line, validation |
 
 ---
 
@@ -324,7 +324,64 @@ Full decision log with rejected alternatives: [`07-risks-and-open-questions.md`]
 
 ---
 
-## 8. Resume instructions
+## 8. Phase 7 — Final review and repository entry points
+
+### Work performed
+
+- Reviewed the repository root, `docs/`, roadmap, requirements, identity, license/clean-room policy, security model, development environment, testing strategy, solution structure, backlog, and issue templates.
+- Wrote the missing root `README.md` as a truthful documentation-only entry point: current status, product promise, scope, reading order, checks, supported-environment target, security warning, roadmap state, contribution rules, and license/name caveats.
+- Added `LICENSE` with the full official Apache License 2.0 text, plus `NOTICE` and `THIRD-PARTY-NOTICES.md`. The license remains **PROPOSED** pending owner confirmation and legal review.
+- Wrote `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md`. No email address, public domain, security SLA, bounty, or released version was invented. Vulnerability reporting points to GitHub private reporting or the repository owner’s GitHub profile.
+- Wrote `docs/README.md` as an index of every Markdown file under `docs/`: core documents, 20 ADRs, nine AI guides, two Arabic documents, the backlog, and all 39 issue drafts.
+- Audited naming: no unintended `ofuq/marsa`, `Ofuq.Marsa.*`, `@marsa/*`, or invented public-domain variants were found. Intentional examples remain in `AGENTS.md`, `docs/00-identity.md`, and review prose.
+- Fixed the stale `PROPOSED for Phase 2 review` status lines in `docs/01-product-requirements.md`, `docs/02-differentiation.md`, and `docs/08-roadmap.md`; Phase 2 is approved.
+- Removed stale Phase 2 wording that implied the differentiation interviews had already happened. The bets remain approved working hypotheses, not externally validated market proof.
+- Added the **MVP cut line** to `docs/08-roadmap.md`: 151 rows are 121 functional requirements + 30 NFRs; 132 are mandatory; 11 SHOULD, 1 COULD, and 7 OUT are outside the mandatory gate; the committed backlog is 39 vertical issues. A smaller external release is a **private preview**, not Marsa 0.1.
+- Added **D-039** to record the cut line without demoting any MUST requirement.
+- Updated this progress log and the documentation index statuses.
+
+### Key decisions
+
+- The repository remains documentation-only; no code, binary, image, release, or hosted product is claimed.
+- `LICENSE` is present but **PROPOSED**; presence of the file does not complete legal or owner approval.
+- The 0.1 gate remains all 132 mandatory requirements and all 39 issues. The cut line adds a fallback private-preview boundary instead of silently dropping MUST items.
+- Root files use only channels that actually exist: GitHub repository metadata and private vulnerability reporting. No fake security email or domain.
+- `docs/README.md` is the canonical index; every new Markdown file under `docs/` must be added there.
+
+### Files written
+
+| File | Purpose |
+|---|---|
+| `README.md` | Documentation-only project overview, status, scope, checks, and reading order |
+| `LICENSE` | Full Apache License 2.0 text |
+| `NOTICE` | Copyright and project notice |
+| `THIRD-PARTY-NOTICES.md` | Current third-party status and release inventory requirements |
+| `CONTRIBUTING.md` | Workflow, DCO, provenance, naming, security, review expectations |
+| `CODE_OF_CONDUCT.md` | Community behavior, reporting, confidentiality, enforcement |
+| `SECURITY.md` | Supported versions, private reporting, scope, safe harbor, hardening |
+| `docs/README.md` | Complete documentation index and validation commands |
+| `docs/01-product-requirements.md` | Approved status and Phase 2 confirmation wording |
+| `docs/02-differentiation.md` | Approved status and validation wording |
+| `docs/08-roadmap.md` | Approved status, MVP cut line, and 151/132/39 distinction |
+| `docs/00-progress.md` | Phase 7 record, decision D-039, and updated next action |
+
+### Validation
+
+- `python3 scripts/check-docs.py`: **Documentation checks passed (102 Markdown files)** — required files present, relative links and anchors valid.
+- `python3 scripts/validate-backlog.py`: **39 issues, 143 requirements mapped, 132 mandatory requirements covered**.
+- `docs/README.md` indexes all 91 Markdown files under `docs/`, including all 39 issue drafts and 20 ADRs.
+- Naming audit found no unintended variants; domain and trademark risks remain documented.
+- No GitHub write, issue creation, label sync, push, or release was performed.
+- Mermaid rendering and independent native Arabic editorial review remain known gaps, not Phase 7 blockers.
+
+### Git state
+
+- Phase 7 commit: `docs: phase 7 final review` (local only; not pushed).
+- The commit hash is recorded in the final handoff.
+
+---
+
+## 9. Resume instructions
 
 To resume after a context reset:
 
@@ -335,16 +392,16 @@ To resume after a context reset:
    - `03-architecture.md`, `04-dotnet-solution-structure.md`, `05-data-model.md`, `06-api-contracts.md`, `07-security.md`, `09-testing-strategy.md`.
    - `07-risks-and-open-questions.md` for decisions and open questions.
    - `backlog/README.md` and the first ready issue for the current milestone.
-5. Continue at the first phase whose status is not `COMPLETE`/`CONFIRMED`.
+5. All documentation phases are complete. Implementation starts at M0 only after owner approval; use `backlog/issues/m0-01-solution-skeleton.md`.
 6. Do not overwrite the prior analysis folder.
 
 ### Current next action
 
-Phase 6 is complete and committed. Start Phase 7: create the missing root files and `docs/README.md`, audit links/naming/contradictions and requirement coverage, add the MVP cut line to `docs/08-roadmap.md`, run all checks, commit, and deliver the final report.
+Phase 7 is complete and committed locally. Deliver the final report; do not push, create issues, or mutate GitHub without the owner. The first implementation task is M0.1.
 
 ---
 
-## 9. Decision log (cumulative)
+## 10. Decision log (cumulative)
 
 | ID | Decision | Status | Date | Notes |
 |---|---|---|---|---|
@@ -362,10 +419,11 @@ Phase 6 is complete and committed. Start Phase 7: create the missing root files 
 | D-036 | 39 vertically sliced MVP issues; cohesive XL issues allowed | Proposed | 2026-10-22 | Every MUST, NFR, and roadmap story is mapped; split XL before parallel work. |
 | D-037 | Agent guidance uses a short contract plus on-demand guides and skills | Proposed | 2026-10-22 | `AGENTS.md` is mandatory; `docs/ai/` and four project skills add depth; `opencode.json` denies GitHub writes. |
 | D-038 | Arabic explainer is a companion narrative, with the glossary as canonical Arabic terminology | Proposed | 2026-10-22 | The explainer teaches the mental model and links to canonical English specs; it is not a full translation or a second source of truth for contracts. |
+| D-039 | 0.1 cut line is all 132 mandatory requirements via 39 issues; a smaller external release is a private preview | **PROPOSED** | 2026-10-22 | 151 rows = 121 functional + 30 NFRs; 11 SHOULD may be deferred by decision, but no MUST is silently dropped. M0–M5 (97 functional MUST) is the largest coherent preview, not 0.1. See `08-roadmap.md` §2.2. |
 
 ---
 
-## 10. Known risks carried into Phase 7
+## 11. Known risks after Phase 7
 
 - **Name/domain:** name is decided, but all three obvious domains are taken; trademark clearance is unknown; a prior container-deployment company used “Marsa” at `marsa.io`. Clearance and a domain are release gates; Rasif remains the contingency.
 - **Scope creep:** the product can easily become a broad Coolify competitor. The MVP must stay single-host, single-service, Docker-only.
@@ -381,4 +439,4 @@ Phase 6 is complete and committed. Start Phase 7: create the missing root files 
 - **Arabic editorial review:** the explainer and glossary are written but not reviewed by an independent native editor. Terminology and tone should be reviewed before publication; the glossary anchors reduce drift.
 - **Diagram rendering:** Mermaid syntax was reviewed manually but not rendered in CI. A broken diagram would not fail the current checks; add a render check if diagrams become a release artifact.
 - **Arabic docs as a second surface:** the explainer can drift from the English specs. Treat the specifications as canonical for contracts and update the explainer when those contracts change.
-- **Scope count:** 151 requirements still need an explicit MVP cut line in Phase 7, so the project does not imply that every requirement is required for the first usable release.
+- **Scope count:** the Phase 7 cut line resolves the ambiguity: 132 mandatory requirements across 39 issues define 0.1; the remaining 19 rows are SHOULD/COULD/OUT. The residual risk is delivery breadth and integration quality, not the count itself.

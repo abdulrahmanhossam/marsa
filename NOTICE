@@ -1,0 +1,12 @@
+Marsa
+Copyright 2026 Ofuq
+
+This repository currently contains documentation, design material, and project
+metadata. It does not yet contain a released Marsa product or bundled
+third-party source code.
+
+Marsa is an Ofuq project. The GitHub account handle `ofuqq` is used only for
+repository URLs and registry identifiers; the brand is spelled Ofuq.
+
+The Apache-2.0 license text is in LICENSE. Third-party notices for future
+release artifacts are tracked in THIRD-PARTY-NOTICES.md.

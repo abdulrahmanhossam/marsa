@@ -1,6 +1,6 @@
 # Marsa — Roadmap and MVP
 
-> Status: **PROPOSED for Phase 2 review**
+> Status: **APPROVED** (Phase 2, 2026-10-22); MVP cut line added in Phase 7
 > Date: 2026-10-22
 > Depends on: [`00-vision.md`](00-vision.md), [`01-product-requirements.md`](01-product-requirements.md), [`02-differentiation.md`](02-differentiation.md)
 > Architecture baseline: prior analysis [`03-architecture.md`](../../ofuq-openship-analysis/03-architecture.md), [`04-dotnet-solution-structure.md`](../../ofuq-openship-analysis/04-dotnet-solution-structure.md), [`05-data-model-and-api.md`](../../ofuq-openship-analysis/05-data-model-and-api.md)
@@ -82,6 +82,29 @@ Sizes are relative (S/M/L/XL), not calendar estimates. The project assumes one p
 - **M4 before rollback UI:** rollback depends on a prior healthy release and a stable route.
 - **M5 before release candidate:** rollback, audit, CLI, and Arabic completeness are part of the MVP, not polish.
 - **M6 is a gate, not a feature phase:** hardening and runbooks run continuously from M3.
+
+### 2.2 MVP cut line
+
+The PRD has **151 requirement rows**. That is not 151 independent features:
+
+| Category | Count | In the 0.1 gate? |
+|---|---:|---|
+| Functional MUST | 102 | Yes |
+| Functional SHOULD | 11 | No; may slip only by recorded decision |
+| Functional COULD | 1 | No |
+| Functional OUT | 7 | No |
+| Non-functional requirements (NFRs) | 30 | Yes |
+| **Total** | **151** | **132 mandatory** |
+
+**Verdict:** 151 is too many to manage as a single checklist, but the committed obligation is **132 mandatory requirements delivered through 39 vertical issues**. That is still large for a one-maintainer 0.1. The risk is breadth, integration, and polish — not arithmetic. Do not add features to compensate.
+
+**Cut line for Marsa 0.1:** the 39-issue backlog, every one of the 132 mandatory requirements, and all seven milestones (M0–M6). The 11 SHOULD items may be deferred only by a recorded decision; the M6 release gates cannot be skipped. A build that stops at M0–M4 (86 functional MUST) is an internal demo, not a releasable product: rollback, audit, CLI, Arabic completion, install/upgrade, backup/restore, and the release E2E gates are still missing.
+
+**If schedule pressure forces a smaller external release:** ship a **private preview**, not Marsa 0.1. The largest coherent preview is the M0–M5 vertical slice (97 functional MUST plus the applicable NFRs), with no public upgrade promise, no general-availability claim, and an explicit security warning. Record the scope change and the missing requirements; never relabel the preview as 0.1.
+
+**Trim order:** defer SHOULD items first. If that is not enough, remove a whole post-MVP capability, not an individual MUST inside a core flow. A MUST can leave 0.1 only by changing the PRD, this roadmap, backlog coverage, and the decision log in the same change.
+
+**Outside the line:** the 7 OUT items, the single COULD item, and everything in §8. This line does not authorize Compose, multi-host, Kubernetes, an app catalog, managed databases, MCP mutation, or a second stateful dependency.
 
 ---
 

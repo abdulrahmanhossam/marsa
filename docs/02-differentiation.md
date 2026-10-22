@@ -1,6 +1,6 @@
 # Marsa — Differentiation
 
-> Status: **PROPOSED for Phase 2 review**
+> Status: **APPROVED** (Phase 2, 2026-10-22)
 > Date: 2026-10-22
 > Depends on: [`00-vision.md`](00-vision.md), [`00-identity.md`](00-identity.md)
 > Next: [`01-product-requirements.md`](01-product-requirements.md), [`08-roadmap.md`](08-roadmap.md)
@@ -20,7 +20,7 @@ Each of these is weak alone. “Written in .NET” is not a value proposition if
 
 The bet is that the **combination** is underserved for a specific user: an Arabic-speaking .NET developer or small team with one server, who wants to understand the platform they depend on.
 
-**Verdict:** proceed, but treat differentiation as a set of hypotheses to validate in Phase 2, not as facts. The strongest wedge is .NET-native legibility; the most distinctive wedge is Arabic-first; the most defensible long-term wedge is the trusted single-host operating model.
+**Verdict:** proceed, but treat differentiation as a set of hypotheses to validate with users, not as proven facts. The strongest wedge is .NET-native legibility; the most distinctive wedge is Arabic-first; the most defensible long-term wedge is the trusted single-host operating model.
 
 ---
 
@@ -393,4 +393,4 @@ The competitor descriptions are paraphrased. No competitor copy, asset, or code 
 
 **PROPOSED:** proceed with the four bets above, with .NET-native legibility as the lead wedge and Arabic-first as the most distinctive wedge. Keep the MVP narrow. Do not add breadth to compensate for a weak first-deploy experience.
 
-**Revisit after:** 8–12 interviews, 3–5 concierge deployments, one competitive task test, and one Arabic usability round. Record the evidence in the Phase 2 review and update this document before the roadmap is treated as committed.
+**Revisit after:** 8–12 interviews, 3–5 concierge deployments, one competitive task test, and one Arabic usability round. Record the evidence in a validation review and update this document before treating the differentiation bets as externally validated. The Phase 2 approval accepts the bets as the working hypothesis, not as market proof.

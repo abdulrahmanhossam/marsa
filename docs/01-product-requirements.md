@@ -1,6 +1,6 @@
 # Marsa — Product Requirements
 
-> Status: **PROPOSED for Phase 2 review**
+> Status: **APPROVED** (Phase 2, 2026-10-22)
 > Date: 2026-10-22
 > Depends on: [`00-vision.md`](00-vision.md), [`02-differentiation.md`](02-differentiation.md)
 > Implementation sequence: [`08-roadmap.md`](08-roadmap.md)
@@ -548,4 +548,4 @@ The epics and milestones are defined in [`08-roadmap.md`](08-roadmap.md). This P
 | Is the MVP boundary small enough to finish? | **PROPOSED yes**, if the single-service and single-host limits hold. |
 | Is every requirement testable? | Every MUST has acceptance criteria; Phase 3 adds API/schema detail and Phase 4 turns them into issues. |
 | What would invalidate this PRD? | A validated user need that requires multi-service, multi-host, Compose, or a different trust model before first release. |
-| Who confirms? | The project owner at the Phase 2 gate. |
+| Who confirms? | The project owner. Phase 2 approved this baseline on 2026-10-22; changes to MUST scope require a recorded decision. |
